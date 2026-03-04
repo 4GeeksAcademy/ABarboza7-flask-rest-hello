@@ -1,0 +1,69 @@
+# USER
+class User1(db.Model):
+    id: Mapped[int] = mapped_column(primary_key=True)
+    user_name: Mapped[str] = mapped_column(String(120), unique=True, nullable=False)
+    first_name: Mapped[str] = mapped_column(String(120), unique=True, nullable=False)
+    last_name: Mapped[str] = mapped_column(String(120), unique=True, nullable=False)
+    email: Mapped[str] = mapped_column(String(120), unique=True, nullable=False)
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "user_name": self.user_name,
+            "first_name": self.first_name,
+            "last_name": self.last_name,
+            "email": self.email,
+        }
+    
+# FOLLOWERS
+class Followers(db.Model):
+    user_follower: Mapped[str] = mapped_column(String(120), unique=True, nullable=False)
+    user_following: Mapped[str] = mapped_column(String(120), unique=True, nullable=False)
+
+    def serialize(self):
+        return {
+            "user_follower": self.user_follower,
+            "user_following": self.user_following,
+        }
+
+# POST
+class Post(db.Model):
+    id: Mapped[int] = mapped_column(primary_key=True)
+    user_ID: Mapped[str] = mapped_column(String(120), unique=True, nullable=False)
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "user_ID": self.user_ID,
+        }
+
+# COMMENT
+class Comment(db.Model):
+    id: Mapped[int] = mapped_column(primary_key=True)
+    user_ID: Mapped[str] = mapped_column(String(120), unique=True, nullable=False)
+    post_ID: Mapped[str] = mapped_column(String(120), unique=True, nullable=False)
+    text: Mapped[str] = mapped_column(String(120), unique=True, nullable=False)
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "user_ID": self.user_ID,
+            "post_ID": self.post_ID,
+            "text": self.text,
+        }
+
+# MEDIA
+class Media(db.Model):
+    id: Mapped[int] = mapped_column(primary_key=True)
+    post_ID: Mapped[str] = mapped_column(String(120), unique=True, nullable=False)
+    type: Mapped[str] = mapped_column(String(120), unique=True, nullable=False)
+    url: Mapped[str] = mapped_column(String(120), unique=True, nullable=False)
+    email: Mapped[str] = mapped_column(String(120), unique=True, nullable=False)
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "post_ID": self.post_ID,
+            "type": self.type,
+            "url": self.url,
+        }
